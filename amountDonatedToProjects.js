@@ -37,7 +37,8 @@ async function checkDonations(accountId) {
     console.log("Donations:");
     donations.forEach((donation, index) => {
         const donationAmount = parseFloat(utils.format.formatNearAmount(donation.total_amount));
-        console.log(`${index + 1}. Donation Amount: ${donationAmount} NEAR, FT ID: ${donation.ft_id} Recipient ID: ${donation.recipient_id}`);
+         const date = new Date(donation.donated_at_ms);
+        console.log(`${index + 1}. Donation Amount: ${donationAmount} NEAR, FT ID: ${donation.ft_id} Recipient ID: ${donation.recipient_id} at TIME ${date} `);
     });
 
     // Filter donations to approved projects and calculate total
@@ -45,7 +46,7 @@ async function checkDonations(accountId) {
     donations.forEach(donation => {
         if (donation.ft_id === "near" && approvedProjects.includes(donation.recipient_id)) {
             // const donationAmount = parseFloat(utils.format.formatNearAmount(donation.total_amount));
-                        const donationAmount =donation.total_amount;
+                     const  donationAmount = parseFloat(utils.format.formatNearAmount(donation.total_amount));
             // totalDonations += donationAmount;
             totalDonations += donationAmount;
             // Log the donation amount and recipient ID
@@ -57,11 +58,11 @@ async function checkDonations(accountId) {
     console.log(`Account ${accountId} has donated a total of ${totalDonations} NEAR to approved projects`);
 
     // Check if total donations exceed 1 NEAR
-    return totalDonations > 1;
+    return totalDonations > 1; // for other FTs need to change this number
 }
 
 // Example usage with "root.near" as the account ID
-const accountId = "root.near"; // Use root.near as the account ID
+const accountId = "minorityprogrammers.near"; // Use root.near as the account ID
 checkDonations(accountId).then(hasDonatedOverOneNear => {
     console.log(`User account '${accountId}' donated over 1 NEAR to approved projects: ${hasDonatedOverOneNear}`);
 }).catch(error => {
