@@ -1,4 +1,3 @@
-// check testnet
 const { connect, keyStores, utils } = require('near-api-js');
 
 async function checkHuman(accountId) {
@@ -49,19 +48,19 @@ async function humanScore(accountId) {
         args: {account_id: accountId}
     });
 
-    console.log(score.score);
-
-    // Return the top donors and their streaks
+    // returns score
     return score.score;
 }
 
-// Example usage
-const testAccount = "odins_eyehole.near"; // Set the number of top donors to display
+// change with the account you wan to check
+const testAccount = "odins_eyehole.near"; 
+// call just human
 checkHuman(testAccount).then(isHuman => {
     // Additional handling if needed
 }).catch(error => {
     console.error("Error checking for human:", error);
 });
+// to get score, also returns is human but just pull score
 humanScore(testAccount).then(score => {
     // Additional handling if needed
 }).catch(error => {
